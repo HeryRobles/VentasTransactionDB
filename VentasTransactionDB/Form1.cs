@@ -40,5 +40,6 @@ namespace VentasTransactionDB
             venta.Conceptos.Add(producto1);
             venta.Conceptos.Add(producto2);
         }
+
     }
 }
