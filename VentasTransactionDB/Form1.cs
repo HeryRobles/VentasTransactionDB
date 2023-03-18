@@ -21,6 +21,24 @@ namespace VentasTransactionDB
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(Conexion.ConectionString);
+            Venta venta= new Venta();
+            venta.ClienteId = 1;
+            venta.Fecha = DateTime.Now;
+            
+            VentaDetalle producto1 = new VentaDetalle();    
+            producto1.Cantidad = 1;
+            producto1.Descripcion = "azucar kg";
+            producto1.PrecioUnitario = 27.00m;
+            producto1.Importe = producto1.Cantidad * producto1.PrecioUnitario;
+
+            VentaDetalle producto2 = new VentaDetalle();
+            producto2.Cantidad = 1;
+            producto2.Descripcion = "Jugo de Mango";
+            producto2.PrecioUnitario = 10.00m;
+            producto2.Importe = producto2.Cantidad * producto2.PrecioUnitario;
+
+            venta.Conceptos.Add(producto1);
+            venta.Conceptos.Add(producto2);
         }
     }
 }

@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace AccesoDatos
 {
-    internal class VentaDetalle
+    public class VentaDetalle
     {
+        public int Id { get; set; }
+        public int VentaId { get; set; }
+        public int ProductoId { get; set; }
+        public decimal Cantidad { get; set; }
+        public string Descripcion { get; set; }
+        public decimal PrecioUnitario { get; set; }
+        public decimal Importe { get; set; }
+
     }
 }
