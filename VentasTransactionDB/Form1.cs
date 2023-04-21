@@ -1,8 +1,4 @@
-﻿using AccesoDatos;
-using AccesoDatos.Metodos;
-using System;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System;
 using System.Windows.Forms;
 
 namespace VentasTransactionDB
@@ -16,10 +12,10 @@ namespace VentasTransactionDB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Transaction metodos = new Transaction();
-            Transaction(metodos.GuardarVenta());
+            
         }
-  
+
+
     }
 }
 
