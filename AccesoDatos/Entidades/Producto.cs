@@ -77,7 +77,7 @@ namespace AccesoDatos
         {
             try
             {
-                string query = "DELETE FROM Existencias WHERE Id = @Id";
+                string query = "DELETE FROM Existencias where Id = @Id";
 
                 using (SqlConnection con = new SqlConnection(query))
                 {
@@ -101,7 +101,7 @@ namespace AccesoDatos
             }
         }
 
-        public Producto ObtenerProductoPorId(int id)
+        public Producto ObtenerProducto(int id)
         {
             try
             {

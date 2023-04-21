@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="Entidades\Conexion.cs" />
-    <Compile Include="Entidades\Existencia.cs" />
+    <Compile Include="Entidades\ExistenciaProd.cs" />
     <Compile Include="Entidades\FolioE.cs" />
     <Compile Include="Entidades\Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
