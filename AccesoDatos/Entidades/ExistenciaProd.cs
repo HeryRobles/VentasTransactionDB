@@ -40,6 +40,25 @@ namespace AccesoDatos
 
         }
 
+        public DataTable ObtenerExistenciaProd()
+        {
+            using(SqlConnection con = new SqlConnection())
+            {
+                string consulta = "select * from Existencias";
+                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, Conexion.ConectionString);
+                DataTable tablaProductos = new DataTable();
+                adaptador.Fill(tablaProductos);
+                return tablaProductos;
+            }
+  
+        }
+
+        public void MostrarTablaExistencia()
+        {
+            DataTable tablaProductos = ObtenerExistenciaProd();
+            
+        }
+
 
     }
 
