@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using FontAwesome.Sharp;
 
 namespace VentasTransactionDB
 {
@@ -14,7 +13,7 @@ namespace VentasTransactionDB
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormInicio());
+            Application.Run(new Form_Inicio());
         }
     }
 }

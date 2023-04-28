@@ -5,6 +5,7 @@ namespace AccesoDatos
 {
     public class ExistenciaProd
     {
+        
         public int Id { get; set; }
         public decimal Existencia { get; set; }
         public int ProductoId { get; set; }
@@ -29,7 +30,7 @@ namespace AccesoDatos
         public void AgregarExistenciaEnCero(SqlConnection con, SqlTransaction transaction, int productoId)
         {
             string query = "Insert into Existencias (Existencia, ProductoId) +" +
-                "VALUES (0, ProductoId)";
+                "VALUES (0, @ProductoId)";
 
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
@@ -56,7 +57,9 @@ namespace AccesoDatos
         public void MostrarTablaExistencia()
         {
             DataTable tablaProductos = ObtenerExistenciaProd();
-            
+           
+
+
         }
 
 

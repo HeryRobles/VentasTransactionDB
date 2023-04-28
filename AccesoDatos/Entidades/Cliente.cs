@@ -8,37 +8,38 @@ namespace AccesoDatos
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-    }
 
-    public void AgregarCliente(Cliente cliente)
-    {
-        
-        try
+        public void AgregarCliente(Cliente cliente)
         {
-            string query = "INSERT INTO Clientes (Nombre) VALUES (@Nombre)";
 
-            using (SqlConnection con = new SqlConnection(query))
+            try
             {
-                SqlTransaction transaction = con.BeginTransaction();
-                con.Open();
+                string query = "INSERT INTO Clientes (Nombre) VALUES (@Nombre)";
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlConnection con = new SqlConnection(query))
                 {
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Transaction = transaction;
+                    SqlTransaction transaction = con.BeginTransaction();
+                    con.Open();
 
-                    cmd.Parameters.AddWithValue("@Nombre", cliente.Nombre);
-                    
-                    cmd.ExecuteNonQuery();
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Transaction = transaction;
+
+                        cmd.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
                 }
 
-                con.Close();
             }
-
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
+ 
 }

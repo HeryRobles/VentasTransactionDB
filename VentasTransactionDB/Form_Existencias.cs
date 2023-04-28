@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace VentasTransactionDB
 {
-    public partial class FormInicio : Form
+    public partial class Form_Existencias : Form
     {
-        public FormInicio()
+        public Form_Existencias()
         {
             InitializeComponent();
-        }
-
-        private void productosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form_Productos fProd = new Form_Productos();
-            fProd.Show();
         }
     }
 }

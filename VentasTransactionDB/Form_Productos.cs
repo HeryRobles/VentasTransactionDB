@@ -29,7 +29,6 @@ namespace VentasTransactionDB
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView1 = new DataGridView();
             ExistenciaProd inventario = new ExistenciaProd();
             inventario.MostrarTablaExistencia();
 
