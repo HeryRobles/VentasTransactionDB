@@ -22,13 +22,13 @@ namespace AccesoDatos
 
                 using (SqlConnection con = new SqlConnection(query))
                 {
-                    SqlTransaction transaction = con.BeginTransaction();
+                    //SqlTransaction transaction = con.BeginTransaction();
                     con.Open();
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.Transaction = transaction;
+                        //cmd.Transaction = transaction;
 
                         cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
                         cmd.Parameters.AddWithValue("@PrecioUnitario", producto.PrecioUnitario);
@@ -52,13 +52,13 @@ namespace AccesoDatos
 
                 using (SqlConnection con = new SqlConnection(query))
                 {
-                    SqlTransaction transaction = con.BeginTransaction();
+                    //SqlTransaction transaction = con.BeginTransaction();
                     con.Open();
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.Transaction = transaction;
+                        //cmd.Transaction = transaction;
 
                         cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
                         cmd.Parameters.AddWithValue("@PrecioUnitario", producto.PrecioUnitario);
@@ -81,13 +81,13 @@ namespace AccesoDatos
 
                 using (SqlConnection con = new SqlConnection(query))
                 {
-                    SqlTransaction transaction = con.BeginTransaction();
+                    //SqlTransaction transaction = con.BeginTransaction();
                     con.Open();
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.Transaction = transaction;
+                        //cmd.Transaction = transaction;
 
                         cmd.Parameters.AddWithValue("@Id", id);
 

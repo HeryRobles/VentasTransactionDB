@@ -8,7 +8,7 @@ namespace AccesoDatos
     public class Venta
     {
         public int Id { get; set; }
-        public int Folio { get; set; }
+        public int Folio { get; private set; }
         public DateTime Fecha { get; set; }
         public int ClienteId { get; set; }
         public decimal Total { get; set; }
@@ -27,10 +27,7 @@ namespace AccesoDatos
                     try
                     {
                         FolioE folio = new FolioE();
-                        int folioActual = folio.ObtenerFolio(con, transaction);
-
-                        venta.Folio = folioActual + 1;
-                        venta.Fecha = DateTime.Now;
+                        int folioActual = folio.ObtenerFolio(con, transaction) + 1;
 
                         string query = "INSERT INTO Ventas " +
                             "(Folio,Fecha,ClienteId,Total) " +
@@ -41,8 +38,8 @@ namespace AccesoDatos
                         {
                             cmd.CommandType = CommandType.Text;
                             cmd.Transaction = transaction;
-                            cmd.Parameters.AddWithValue("@Folio", venta.Folio);
-                            cmd.Parameters.AddWithValue("@Fecha", venta.Fecha);
+                            cmd.Parameters.AddWithValue("@Folio", folioActual);
+                            cmd.Parameters.AddWithValue("@Fecha", DateTime.Now);
                             cmd.Parameters.AddWithValue("@ClienteId", venta.ClienteId);
                             cmd.Parameters.AddWithValue("@Total", venta.Total);
 
@@ -57,10 +54,10 @@ namespace AccesoDatos
                             venta.Id = idVenta;
                         }
 
-                        foreach (VentaDetalle concepto in venta.Conceptos)
+                        foreach (VentaDetalle concepto in Conceptos)
                         {
-                            concepto.VentaId = venta.Id;
-                            concepto.GuardarConceptos(con, transaction, concepto);
+                            concepto.VentaId = Id;
+                            concepto.GuardarVentaDetalle(con, transaction, concepto);
 
                             ExistenciaProd existencia = new ExistenciaProd();
                             existencia.ActualizarExistencia(con, transaction, concepto);
@@ -72,12 +69,12 @@ namespace AccesoDatos
                     catch (Exception ex) { transaction.Rollback(); throw ex; }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
         }
-        
+
     }
 }

@@ -8,6 +8,7 @@ namespace AccesoDatos
     {
         public int Id { get; set; }
         public int Folio { get; set; }
+
         public int ObtenerFolio(SqlConnection con, SqlTransaction transaction)
         {
             try

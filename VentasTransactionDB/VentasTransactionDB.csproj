@@ -53,52 +53,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form_Clientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Clientes.Designer.cs">
-      <DependentUpon>Form_Clientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Existencias.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Existencias.Designer.cs">
-      <DependentUpon>Form_Existencias.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Productos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Productos.Designer.cs">
-      <DependentUpon>Form_Productos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_Inicio.Designer.cs">
       <DependentUpon>Form_Inicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Ventas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Ventas.Designer.cs">
-      <DependentUpon>Form_Ventas.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form_Clientes.resx">
-      <DependentUpon>Form_Clientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Existencias.resx">
-      <DependentUpon>Form_Existencias.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_Inicio.resx">
       <DependentUpon>Form_Inicio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Productos.resx">
-      <DependentUpon>Form_Productos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Ventas.resx">
-      <DependentUpon>Form_Ventas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
