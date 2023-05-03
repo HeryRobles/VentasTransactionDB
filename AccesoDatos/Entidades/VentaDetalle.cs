@@ -15,7 +15,7 @@ namespace AccesoDatos
         public decimal Importe { get; set; }
 
 
-        public void GuardarVentaDetalle(SqlConnection con, SqlTransaction transaction, VentaDetalle concepto)
+        public void GuardarConceptos(SqlConnection con, SqlTransaction transaction, VentaDetalle concepto)
         {
             try
             {

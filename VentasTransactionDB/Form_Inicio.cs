@@ -24,7 +24,7 @@ namespace VentasTransactionDB
 
 
         private void button2_Click(object sender, EventArgs e)
-        {
+        { 
 
             Producto producto = new Producto();
             producto.Descripcion = textBox1.Text;
@@ -48,31 +48,27 @@ namespace VentasTransactionDB
                 EditarProd(id);
             }
 
-            
         }
 
+        //private void EliminarProd(int id)
+        //{
+        //    Producto producto = new Producto();
+        //    producto.Id = id;
+        //    producto.EliminarProducto(producto);
+        //}
         private void button5_Click(object sender, EventArgs e)
         {
-            try
+            Producto producto = new Producto();
+            if (dataGridView1.SelectedRows.Count > 0)
             {
-                int productoId;
-                if (int.TryParse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), out productoId))
-                {
-                    Producto accesoProductos = new Producto();
-                    accesoProductos.EliminarProducto(productoId);
-                    MostrarProducto();
-                 
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                producto.EliminarProducto(id);
             }
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            textBox2.Text = dataGridView1.SelectedCells[1].Value.ToString();
+            textBox1.Text = dataGridView1.SelectedCells[1].Value.ToString();
             textBox3.Text = dataGridView1.SelectedCells[2].Value.ToString();
 
         }
@@ -95,26 +91,29 @@ namespace VentasTransactionDB
             MessageBox.Show("Cliente Agregado");
         }
 
-        
+        //CREAR LA VENTA:
+               
         private void button1_Click(object sender, EventArgs e)
         {
-            VentaDetalle producto = new VentaDetalle();
-            producto.ProductoId = 1;
-            producto.Descripcion = textBox1.Text;
-            producto.PrecioUnitario = Convert.ToDecimal(textBox3.Text);
-            producto.Importe = producto.Cantidad * producto.PrecioUnitario;
-
+            VentaDetalle conceptos = new VentaDetalle();
             Venta venta = new Venta();
-            venta.Conceptos.Add(producto);
-
-            //Venta nvaVenta = new Venta();
-            Form_Inicio formulario = new Form_Inicio();
-
-
-
             venta.GuardarVenta(venta);
+            MessageBox.Show("La venta se ha realizado con éxito");
+            
         }
 
-       
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            textBox2.Text = dataGridView1.SelectedCells[1].Value.ToString();
+        }
+
+        private void MostrarClientes()
+        {
+            Cliente clientes = new Cliente();
+            SqlDataAdapter adapter = clientes.MostrarClientes();
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView1.DataSource = dt;
+        }
     }
 }

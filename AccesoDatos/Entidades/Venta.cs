@@ -57,7 +57,7 @@ namespace AccesoDatos
                         foreach (VentaDetalle concepto in Conceptos)
                         {
                             concepto.VentaId = Id;
-                            concepto.GuardarVentaDetalle(con, transaction, concepto);
+                            concepto.GuardarConceptos(con, transaction, concepto);
 
                             ExistenciaProd existencia = new ExistenciaProd();
                             existencia.ActualizarExistencia(con, transaction, concepto);
