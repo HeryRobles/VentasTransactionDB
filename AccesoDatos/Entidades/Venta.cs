@@ -14,6 +14,7 @@ namespace AccesoDatos
         public decimal Total { get; set; }
         public List<VentaDetalle> Conceptos { get; set; } = new List<VentaDetalle>();
 
+      
         public void GuardarVenta(Venta venta)
         {
             try
