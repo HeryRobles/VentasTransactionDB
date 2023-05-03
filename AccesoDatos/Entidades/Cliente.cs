@@ -1,6 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using System;
+using Microsoft.SqlServer.Dac.Extensibility;
 
 namespace AccesoDatos
 {
@@ -16,30 +17,125 @@ namespace AccesoDatos
             {
                 string query = "INSERT INTO Clientes (Nombre) VALUES (@Nombre)";
 
-                using (SqlConnection con = new SqlConnection(query))
+                using (SqlConnection con = new SqlConnection(Conexion.ConectionString))
                 {
-                    SqlTransaction transaction = con.BeginTransaction();
+             
                     con.Open();
+                    SqlTransaction transaction = con.BeginTransaction();
 
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    try
                     {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Transaction = transaction;
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
 
-                        cmd.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+                            cmd.Parameters.AddWithValue("@Nombre", cliente.Nombre);
 
-                        cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
                     }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception(ex.Message);
+                    }
+                    
+                    
+                } 
 
-                    con.Close();
-                }
 
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());   
                 throw new Exception(ex.Message);
             }
         }
+
+        public void EliminarCliente(int id)
+        {
+            try
+            {
+                string query = "DELETE FROM Clientes where Id = @Id";
+                using(SqlConnection con = new SqlConnection(Conexion.ConectionString))
+                {
+                    con.Open();
+                    SqlTransaction transaction = con.BeginTransaction();
+                    try
+                    {
+                        using(SqlCommand cmd = new SqlCommand(query,con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
+                            cmd.Parameters.AddWithValue("@Id", id);
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                    }catch(Exception ex) { transaction.Rollback();
+                    throw new Exception(ex.ToString());} 
+                }
+            }catch(Exception ex) { throw new Exception(ex.ToString()); }
+        }
+
+        public void ActualizarCliente(Cliente cliente)
+        {
+            try
+            {
+                string query = "UPDATE Clientes set Nombre = @Nombre where Id= @Id";
+                using (SqlConnection con = new SqlConnection(Conexion.ConectionString)) 
+                {
+                    con.Open();
+                    SqlTransaction transaction = con.BeginTransaction();
+                    try
+                    {
+                        using(SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
+                            cmd.Parameters.AddWithValue("@id", cliente.Id);
+                            cmd.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                    }catch(Exception ex) { transaction.Rollback(); throw new Exception(ex.Message); }
+                }
+                
+            }catch(Exception ex) { throw new Exception(ex.Message); }
+        }
+        public SqlDataAdapter MostrarClientes()
+        {
+            
+            try
+            {
+                string query = "select * from Clientes";
+                SqlDataAdapter clientes = new SqlDataAdapter(query, Conexion.ConectionString);
+
+                return clientes;
+
+
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message); 
+            }
+        }
+
+        //public SqlDataAdapter ObtenerListaClientes()
+        //{
+        //    try
+        //    {
+        //        string query = "SELECT * FROM Clientes";
+        //        SqlDataAdapter clientes = new SqlDataAdapter(query, Conexion.ConectionString);
+
+        //        return clientes;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
     }
  
 }

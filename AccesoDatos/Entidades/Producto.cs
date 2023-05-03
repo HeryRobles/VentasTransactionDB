@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AccesoDatos;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -15,31 +16,50 @@ namespace AccesoDatos
         {
             try
             {
-                string query = "INSERT INTO Existencias" +
+                string query = "INSERT INTO Productos" +
                     "(Descripcion,PrecioUnitario) " +
                     "VALUES" + 
-                    "(@Descripcion,@PrecioUnitario)";
+                    "(@Descripcion,@PrecioUnitario); select scope_identity()";
 
-                using (SqlConnection con = new SqlConnection(query))
+                using (SqlConnection con = new SqlConnection(Conexion.ConectionString))
                 {
-                    //SqlTransaction transaction = con.BeginTransaction();
+                    SqlTransaction transaction; 
                     con.Open();
+                    transaction = con.BeginTransaction();
 
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    try
                     {
-                        cmd.CommandType = CommandType.Text;
-                        //cmd.Transaction = transaction;
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
 
-                        cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
-                        cmd.Parameters.AddWithValue("@PrecioUnitario", producto.PrecioUnitario);
+                            cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
+                            cmd.Parameters.AddWithValue("@PrecioUnitario", producto.PrecioUnitario);
 
-                        cmd.ExecuteNonQuery();
+                            //cmd.ExecuteNonQuery();
+
+                            if(!int.TryParse(cmd.ExecuteScalar().ToString(), out int idProducto))
+                            {
+                                throw new Exception("No se agregó el producto correctamente");
+                            }
+                            ExistenciaProd existencias = new ExistenciaProd();
+                            existencias.AgregarExistenciaEnCero(con, transaction, idProducto);
+                        }
+                        transaction.Commit();
+
+                    }catch(Exception ex) 
+                    { 
+                        transaction.Rollback();
+                        throw new Exception(ex.Message);
                     }
-                }
+
+                }  
 
             }
             catch (Exception ex)
             {
+                
                 throw new Exception(ex.Message);
             }
         }
@@ -48,24 +68,36 @@ namespace AccesoDatos
         {
             try
             {
-                string query = "UPDATE Existencias SET Descripcion = @Descripcion, PrecioUnitario = @PrecioUnitario WHERE Id = @Id";
+                string query = "UPDATE Productos SET Descripcion = @Descripcion, PrecioUnitario = @PrecioUnitario WHERE Id = @Id";
 
-                using (SqlConnection con = new SqlConnection(query))
+                using (SqlConnection con = new SqlConnection(Conexion.ConectionString))
                 {
-                    //SqlTransaction transaction = con.BeginTransaction();
                     con.Open();
+                    SqlTransaction transaction = con.BeginTransaction();
 
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    try
                     {
-                        cmd.CommandType = CommandType.Text;
-                        //cmd.Transaction = transaction;
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
 
-                        cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
-                        cmd.Parameters.AddWithValue("@PrecioUnitario", producto.PrecioUnitario);
-                        cmd.Parameters.AddWithValue("@Id", producto.Id);
+                            cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
+                            cmd.Parameters.AddWithValue("@PrecioUnitario", producto.PrecioUnitario);
+                            cmd.Parameters.AddWithValue("@Id", producto.Id);
 
-                        cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+
                     }
+                    catch (Exception ex) 
+                    { 
+                        transaction.Rollback(); 
+                        throw new Exception(ex.Message);
+                    }
+                    
+
                 }
             }
             catch (Exception ex)
@@ -77,22 +109,32 @@ namespace AccesoDatos
         {
             try
             {
-                string query = "DELETE FROM Existencias where Id = @Id";
+                string query = "DELETE FROM Existencias where ProductoId = @Id; DELETE FROM Productos where Id =@Id";
 
                 using (SqlConnection con = new SqlConnection(query))
-                {
-                    //SqlTransaction transaction = con.BeginTransaction();
+                {                    
                     con.Open();
+                    SqlTransaction transaction = con.BeginTransaction();
 
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    try
                     {
-                        cmd.CommandType = CommandType.Text;
-                        //cmd.Transaction = transaction;
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
 
-                        cmd.Parameters.AddWithValue("@Id", id);
+                            cmd.Parameters.AddWithValue("@Id", id);
 
-                        cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
                     }
+                    catch (Exception ex) 
+                    {
+                        transaction.Rollback();
+                        throw new Exception(ex.Message);
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -101,42 +143,16 @@ namespace AccesoDatos
             }
         }
 
-        public Producto ObtenerProducto(int id)
+        public SqlDataAdapter MostrarProducto()
         {
             try
             {
-                string query = "SELECT Id, Descripcion, PrecioUnitario FROM Existencias WHERE Id = @Id";
+                string query = "SELECT * FROM Productos";
+                SqlDataAdapter productos= new SqlDataAdapter(query, Conexion.ConectionString);
 
-                using (SqlConnection con = new SqlConnection(query))
-                {
-                    con.Open();
+                
 
-                    using (SqlCommand cmd = new SqlCommand(query, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-
-                        cmd.Parameters.AddWithValue("@Id", id);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
-                                {
-                                    Producto producto = new Producto();
-
-                                    producto.Id = reader.GetInt32(0);
-                                    producto.Descripcion = reader.GetString(1);
-                                    producto.PrecioUnitario = reader.GetDecimal(2);
-
-                                    return producto;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                return null;
+                return productos;
             }
             catch (Exception ex)
             {
@@ -149,4 +165,32 @@ namespace AccesoDatos
 
 }
 
+//using (SqlConnection con = new SqlConnection(query))
+//{
+//    con.Open();
+
+//    using (SqlCommand cmd = new SqlCommand(query, con))
+//    {
+//        cmd.CommandType = CommandType.Text;
+
+//        cmd.Parameters.AddWithValue("@Id", id);
+
+//        using (SqlDataReader reader = cmd.ExecuteReader())
+//        {
+//            if (reader.HasRows)
+//            {
+//                while (reader.Read())
+//                {
+//                    Producto producto = new Producto();
+
+//                    producto.Id = reader.GetInt32(0);
+//                    producto.Descripcion = reader.GetString(1);
+//                    producto.PrecioUnitario = reader.GetDecimal(2);
+
+//                    return producto;
+//                }
+//            }
+//        }
+//    }
+//}
 
