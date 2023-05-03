@@ -13,8 +13,8 @@ namespace VentasTransactionDB
             InitializeComponent();
             try
             {
-                //MostrarClientes();
-                //MostrarProducto();
+                MostrarClientes();
+                MostrarProducto();
 
             }
             catch (Exception ex)
