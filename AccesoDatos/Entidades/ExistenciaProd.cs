@@ -12,9 +12,7 @@ namespace AccesoDatos
 
         public void ActualizarExistencia(SqlConnection con, SqlTransaction transaction, VentaDetalle concepto)
         {
-            string query = "Update Existencias" +
-                    "set Existencia = Existencia-@Cantidad" +
-                    "where ProductoId = @ProductoId";
+            string query = "Update Existencias set Existencia = Existencia-@Cantidad where ProductoId = @ProductoId";
 
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
@@ -45,7 +43,7 @@ namespace AccesoDatos
         {
             try
             {
-                string query = "select * from Clientes";
+                string query = "select * from Existencias";
                 SqlDataAdapter existencias = new SqlDataAdapter(query, Conexion.ConectionString);
 
                 return existencias;
