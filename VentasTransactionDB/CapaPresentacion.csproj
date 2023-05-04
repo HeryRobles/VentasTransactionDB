@@ -59,10 +59,28 @@
     <Compile Include="Form_Inicio.Designer.cs">
       <DependentUpon>Form_Inicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Menu_Inicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Menu_Inicio.Designer.cs">
+      <DependentUpon>Form_Menu_Inicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Productos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Productos.Designer.cs">
+      <DependentUpon>Form_Productos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_Inicio.resx">
       <DependentUpon>Form_Inicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Menu_Inicio.resx">
+      <DependentUpon>Form_Menu_Inicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Productos.resx">
+      <DependentUpon>Form_Productos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,9 +107,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AccesoDatos\AccesoDatos.csproj">
+    <ProjectReference Include="..\AccesoDatos\CapaAccesoDatos.csproj">
       <Project>{5c1474f5-bcb6-4bc5-979c-fbe295bd9530}</Project>
-      <Name>AccesoDatos</Name>
+      <Name>CapaAccesoDatos</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
