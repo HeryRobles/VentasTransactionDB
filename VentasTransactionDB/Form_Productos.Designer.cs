@@ -34,6 +34,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.iconButtonAgregar = new FontAwesome.Sharp.IconButton();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -98,12 +100,23 @@
             this.iconButtonAgregar.Text = "Agregar";
             this.iconButtonAgregar.UseVisualStyleBackColor = false;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(18, 242);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(473, 253);
+            this.dataGridView1.TabIndex = 27;
+            // 
             // Form_Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(37)))), ((int)(((byte)(84)))));
-            this.ClientSize = new System.Drawing.Size(1061, 552);
+            this.ClientSize = new System.Drawing.Size(974, 641);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.iconButtonAgregar);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -112,6 +125,8 @@
             this.Controls.Add(this.labelTitle);
             this.Name = "Form_Productos";
             this.Text = "Form_Productos";
+            this.Load += new System.EventHandler(this.Form_Productos_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,5 +139,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private FontAwesome.Sharp.IconButton iconButtonAgregar;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
