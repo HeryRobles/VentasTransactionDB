@@ -93,6 +93,16 @@ namespace VentasTransactionDB.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_clickPuntoVenta1 {
+            get {
+                object obj = ResourceManager.GetObject("icon-clickPuntoVenta1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icono_190__ {
             get {
                 object obj = ResourceManager.GetObject("icono 190 -", resourceCulture);
@@ -126,6 +136,26 @@ namespace VentasTransactionDB.Properties {
         internal static System.Drawing.Bitmap icono_74__ {
             get {
                 object obj = ResourceManager.GetObject("icono 74 -", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap My_project_1 {
+            get {
+                object obj = ResourceManager.GetObject("My project-1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap My_project_11 {
+            get {
+                object obj = ResourceManager.GetObject("My project-11", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

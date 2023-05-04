@@ -13,7 +13,7 @@ namespace VentasTransactionDB
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_Inicio());
+            Application.Run(new Form_Menu_Inicio());
         }
     }
 }
